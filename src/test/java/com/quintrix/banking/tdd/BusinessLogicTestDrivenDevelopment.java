@@ -36,7 +36,7 @@ public class BusinessLogicTestDrivenDevelopment {
 
 	@Test
 	public void canQueryBranches() {
-		Branch testBranch = companyDb.findBranchByLocation("test branch");
+		Branch testBranch = companyDb.findBranchByLocation("test location");
 		assert(testBranch != null);
 	}
 	
@@ -129,7 +129,7 @@ public class BusinessLogicTestDrivenDevelopment {
 	private Account makeAccount(String owner) {
 		Account testAccount = new Account();
 		testAccount.currentBalance = 0.0;
-		testAccount.homeBranch = companyDb.findBranchByLocation("test branch");
+		testAccount.homeBranch = companyDb.findBranchByLocation("test location");
 		testAccount.opened = new Date();
 		testAccount.transactions = Sets.newHashSet();
 		testAccount.ownerName = owner;

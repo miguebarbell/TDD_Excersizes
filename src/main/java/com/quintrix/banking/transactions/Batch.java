@@ -3,8 +3,6 @@ package com.quintrix.banking.transactions;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Entity;
-
 import com.quintrix.banking.DataModel;
 
 public class Batch extends DataModel  {
