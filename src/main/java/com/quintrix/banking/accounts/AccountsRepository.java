@@ -1,11 +1,56 @@
 package com.quintrix.banking.accounts;
 
-public interface AccountsRepository /* extends CrudRepository<Account, Long> */ {
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Controller;
 
-	public Account findAccountByOwnerName(String location);
-	public Account findAccountById(long id);
-	public Account addAccount(Account accountToAdd);
-	public boolean closeAccount(Account accountToClose);
-	public boolean updateAccount(Account updatedAccount);
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+public class AccountsRepository /* extends CrudRepository<Account, Long> */ {
+	public List<Account> accounts = new ArrayList<>();
+
+	public Account findAccountById(long i) {
+		return accounts.stream().filter(account -> account.getId() == i).findFirst().orElse(null);
+	}
+
+	public void addAccount(Account newAccount) {
+		accounts.add(newAccount);
+	}
+
+	public Account findAccountByOwnerName(String ownername) {
+		String[] posibilities = ownername.split("\\W*\\s+");
+		Account posible = new Account("test");
+		for (String s : posibilities) {
+			posible = accounts.stream()
+			                          .filter(account -> account.ownerName.toLowerCase().contains(s.toLowerCase()))
+																.findFirst().orElse(posible);
+			if (posible != null) {
+				return posible;
+			}
+		}
+		return posible;
+	}
+
+	public void updateAccount(Account account) {
+
+
+	}
+
+	public void closeAccount(Account testAccount) {
+//		accounts.remove(testAccount);
+		testAccount.closed = LocalDate.now();
+	}
+
+//
+//	public Account findAccountByOwnerName(String location) {
+//
+//	}
+//	public Account findAccountById(long id);
+//	public Account addAccount(Account accountToAdd);
+//	public boolean closeAccount(Account accountToClose);
+//	public boolean updateAccount(Account updatedAccount);
 	
 }

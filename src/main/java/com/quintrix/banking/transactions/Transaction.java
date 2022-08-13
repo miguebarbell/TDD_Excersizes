@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.quintrix.banking.DataModel;
 
-public class Transaction extends DataModel {
+public class Transaction {
 
 	public long sourceAccountId;
 	public long destinationAccountId;

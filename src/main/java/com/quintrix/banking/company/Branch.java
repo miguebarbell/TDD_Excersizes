@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import com.quintrix.banking.DataModel;
 import com.quintrix.banking.accounts.Account;
 
-public class Branch extends DataModel {
+public class Branch {
 
 	public String location;
 	public Set<Account> accounts;

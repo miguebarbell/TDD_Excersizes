@@ -39,28 +39,30 @@ public class BusinessLogicTestDrivenDevelopment {
 		Branch testBranch = companyDb.findBranchByLocation("test location");
 		assert(testBranch != null);
 	}
-	
+
 	@Test
 	public void canAddAccount() {
-		Account testAccount = makeAccount("General Zod");
+//		BUG: makeAccount??
+//		Account testAccount = makeAccount("General Zod");
+		Account testAccount = new Account("General Zod");
 		//  ** The following line may clash with the auto ID generation found in DataModel.java
 		testAccount.id = 1;
 		accountsDb.addAccount(testAccount);
 	}
-	
+//
 	@Test
 	public void canFindAccountById() {
 		//  ** If auto ID generation created an issue with specifying an ID then this test will need to first locate a valid account ID before performing this search
 		Account testAccount = accountsDb.findAccountById(1);
 		assert(testAccount != null);
 	}
-	
+
 	@Test
 	public void canFindAccountByName() {
 		Account testAccount = accountsDb.findAccountByOwnerName("Zod, General");
 		assert(testAccount != null);
 	}
-	
+
 	@Test
 	public void canUpdateAccountInfo() {
 		Account testAccount = accountsDb.findAccountByOwnerName("General Zod");
@@ -69,7 +71,7 @@ public class BusinessLogicTestDrivenDevelopment {
 		testAccount = accountsDb.findAccountByOwnerName("Batman");
 		assert(testAccount != null && testAccount.ownerName.equals("Batman"));
 	}
-	
+
 	@Test
 	public void canCloseAccount() {
 		Account testAccount = accountsDb.findAccountByOwnerName("Batman");
@@ -77,17 +79,19 @@ public class BusinessLogicTestDrivenDevelopment {
 		testAccount = accountsDb.findAccountByOwnerName("Batman");
 		assert(testAccount.closed != null);
 	}
-	
+
 	@Test
 	public void canStoreTwoNewAccounts() {
-		Account newAccount1 = makeAccount("Thing 1");
-		Account newAccount2 = makeAccount("Thing 2");
+		Account newAccount1 = new Account("Thing 1");
+		Account newAccount2 = new Account("Thing 2");
+//		Account newAccount1 = makeAccount("Thing 1");
+//		Account newAccount2 = makeAccount("Thing 2");
 		newAccount1.currentBalance = 50.0;
 		newAccount2.currentBalance = 0.0;
 		accountsDb.addAccount(newAccount1);
 		accountsDb.addAccount(newAccount2);
 	}
-	
+
 	@Test
 	public void canCreateValidTransaction() {
 		Account sourceAccount = accountsDb.findAccountByOwnerName("Thing 1");
@@ -100,7 +104,7 @@ public class BusinessLogicTestDrivenDevelopment {
 		newTransaction.type = TransactionType.Transfer;
 		transactionsDb.submitNewTransaction(newTransaction);
 	}
-	
+
 	@Test
 	public void cannotCreateInvalidTransaction() {
 		Account sourceAccount = accountsDb.findAccountByOwnerName("Thing 2");
@@ -113,27 +117,27 @@ public class BusinessLogicTestDrivenDevelopment {
 		newTransaction.type = TransactionType.Transfer;
 		assertThrows(Exception.class, () -> transactionsDb.submitNewTransaction(newTransaction));
 	}
-	
+
 	@Test
 	public void canBatchProcessTransactions() {
 		transactionsDb.startBatchProcessing();
 	}
-	
+
 	@Test
 	public void batchProcessIsAccurate() {
 		Account testAccount1 = accountsDb.findAccountByOwnerName("Thing 1");
 		Account testAccount2 = accountsDb.findAccountByOwnerName("Thing 2");
 		assert(testAccount1.currentBalance == 0.0 && testAccount2.currentBalance == 50.0);
 	}
-	
-	private Account makeAccount(String owner) {
-		Account testAccount = new Account();
-		testAccount.currentBalance = 0.0;
-		testAccount.homeBranch = companyDb.findBranchByLocation("test location");
-		testAccount.opened = new Date();
-		testAccount.transactions = Sets.newHashSet();
-		testAccount.ownerName = owner;
-		return testAccount;
-	}
-	
+//
+//	private Account makeAccount(String owner) {
+//		Account testAccount = new Account();
+//		testAccount.currentBalance = 0.0;
+//		testAccount.homeBranch = companyDb.findBranchByLocation("test location");
+//		testAccount.opened = new Date();
+//		testAccount.transactions = Sets.newHashSet();
+//		testAccount.ownerName = owner;
+//		return testAccount;
+//	}
+//
 }
