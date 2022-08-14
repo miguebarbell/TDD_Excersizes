@@ -25,14 +25,17 @@ public class TransactionsRepository /* extends CrudRepository<Transaction, Long>
 	List<Transaction> transactions = new ArrayList<>();
 	public boolean submitNewTransaction(Transaction transactionToSubmit) {
 		// the Account must have the enough money
+//		System.out.println("accountsDb = " + accountsDb.findAccountById(1).getOwnerName());
+
 		Account sourceAccount = accountsDb.findAccountById(transactionToSubmit.sourceAccountId);
+		System.out.println("transactionToSubmit.sourceAccountId = " + transactionToSubmit.sourceAccountId);
 		if (transactionToSubmit.amount > sourceAccount.currentBalance) return false;
 		transactions.add(transactionToSubmit);
 //		else throw new Exception("nopeee");
 		return true;
 	}
 	public void startBatchProcessing(){
-
-	};
+		System.out.println("batching!!!!");
+	}
 	
 }

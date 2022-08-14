@@ -5,17 +5,23 @@ import java.util.Set;
 
 import com.quintrix.banking.company.Branch;
 import com.quintrix.banking.transactions.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 
 public class Account {
-	public static int idCount = 0;
 	public Set<Transaction> transactions;
 	public AccountType type;
 	public boolean isActive;
+
+	public String getOwnerName() {
+		return ownerName;
+	}
+
 	public String ownerName;
 	public LocalDate opened;
 	public LocalDate closed;
 	public Branch homeBranch;
-	// Balance after most recent batch
 	public double currentBalance;
 
 	public long getId() {
@@ -29,7 +35,5 @@ public class Account {
 		this.ownerName = ownerName;
 		this.isActive = true;
 		this.opened = LocalDate.now();
-		this.id = idCount + 1;
-		idCount++;
 	}
 }

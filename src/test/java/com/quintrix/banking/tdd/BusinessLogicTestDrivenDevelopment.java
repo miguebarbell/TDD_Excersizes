@@ -108,7 +108,9 @@ public class BusinessLogicTestDrivenDevelopment {
 	@Test
 	public void cannotCreateInvalidTransaction() {
 		Account sourceAccount = accountsDb.findAccountByOwnerName("Thing 2");
+		System.out.println("sourceAccount.getOwnerName() = " + sourceAccount.getOwnerName());
 		Account destAccount = accountsDb.findAccountByOwnerName("Thing 1");
+		System.out.println("destAccount.getOwnerName() = " + destAccount.getOwnerName());
 		Transaction newTransaction = new Transaction();
 		newTransaction.amount = 1.0;
 		newTransaction.date = new Date();
@@ -129,6 +131,8 @@ public class BusinessLogicTestDrivenDevelopment {
 		Account testAccount2 = accountsDb.findAccountByOwnerName("Thing 2");
 		assert(testAccount1.currentBalance == 0.0 && testAccount2.currentBalance == 50.0);
 	}
+
+
 //
 //	private Account makeAccount(String owner) {
 //		Account testAccount = new Account();
