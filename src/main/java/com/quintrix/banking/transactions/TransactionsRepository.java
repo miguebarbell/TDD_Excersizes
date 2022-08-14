@@ -31,7 +31,6 @@ public class TransactionsRepository /* extends CrudRepository<Transaction, Long>
 		System.out.println("transactionToSubmit.sourceAccountId = " + transactionToSubmit.sourceAccountId);
 		if (transactionToSubmit.amount > sourceAccount.currentBalance) return false;
 		transactions.add(transactionToSubmit);
-//		else throw new Exception("nopeee");
 		return true;
 	}
 	public void startBatchProcessing(){

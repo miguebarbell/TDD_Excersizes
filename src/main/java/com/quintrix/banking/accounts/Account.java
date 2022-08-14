@@ -1,6 +1,7 @@
 package com.quintrix.banking.accounts;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 import com.quintrix.banking.company.Branch;
@@ -19,8 +20,8 @@ public class Account {
 	}
 
 	public String ownerName;
-	public LocalDate opened;
-	public LocalDate closed;
+	public Date opened;
+	public Date closed;
 	public Branch homeBranch;
 	public double currentBalance;
 
@@ -36,8 +37,8 @@ public class Account {
 
 
 	public Account(String ownerName) {
-		this.ownerName = ownerName;
-		this.isActive = true;
-		this.opened = LocalDate.now();
+	}
+	public Account() {
+
 	}
 }

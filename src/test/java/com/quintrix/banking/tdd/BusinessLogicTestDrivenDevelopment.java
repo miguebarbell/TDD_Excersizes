@@ -42,17 +42,13 @@ public class BusinessLogicTestDrivenDevelopment {
 
 	@Test
 	public void canAddAccount() {
-//		BUG: makeAccount??
-//		Account testAccount = makeAccount("General Zod");
-		Account testAccount = new Account("General Zod");
-		//  ** The following line may clash with the auto ID generation found in DataModel.java
+		Account testAccount = makeAccount("General Zod");
 		testAccount.id = 1;
 		accountsDb.addAccount(testAccount);
 	}
 //
 	@Test
 	public void canFindAccountById() {
-		//  ** If auto ID generation created an issue with specifying an ID then this test will need to first locate a valid account ID before performing this search
 		Account testAccount = accountsDb.findAccountById(1);
 		assert(testAccount != null);
 	}
@@ -82,10 +78,8 @@ public class BusinessLogicTestDrivenDevelopment {
 
 	@Test
 	public void canStoreTwoNewAccounts() {
-		Account newAccount1 = new Account("Thing 1");
-		Account newAccount2 = new Account("Thing 2");
-//		Account newAccount1 = makeAccount("Thing 1");
-//		Account newAccount2 = makeAccount("Thing 2");
+		Account newAccount1 = makeAccount("Thing 1");
+		Account newAccount2 = makeAccount("Thing 2");
 		newAccount1.currentBalance = 50.0;
 		newAccount2.currentBalance = 0.0;
 		accountsDb.addAccount(newAccount1);
@@ -133,15 +127,15 @@ public class BusinessLogicTestDrivenDevelopment {
 	}
 
 
-//
-//	private Account makeAccount(String owner) {
-//		Account testAccount = new Account();
-//		testAccount.currentBalance = 0.0;
-//		testAccount.homeBranch = companyDb.findBranchByLocation("test location");
-//		testAccount.opened = new Date();
-//		testAccount.transactions = Sets.newHashSet();
-//		testAccount.ownerName = owner;
-//		return testAccount;
-//	}
-//
+
+	private Account makeAccount(String owner) {
+		Account testAccount = new Account();
+		testAccount.currentBalance = 0.0;
+		testAccount.homeBranch = companyDb.findBranchByLocation("test location");
+		testAccount.opened = new Date();
+		testAccount.transactions = Sets.newHashSet();
+		testAccount.ownerName = owner;
+		return testAccount;
+	}
+
 }
