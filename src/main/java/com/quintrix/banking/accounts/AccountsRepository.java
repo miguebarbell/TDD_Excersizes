@@ -19,6 +19,7 @@ public class AccountsRepository /* extends CrudRepository<Account, Long> */ {
 	}
 
 	public void addAccount(Account newAccount) {
+		newAccount.setId(accounts.size() + 1);
 		accounts.add(newAccount);
 	}
 
