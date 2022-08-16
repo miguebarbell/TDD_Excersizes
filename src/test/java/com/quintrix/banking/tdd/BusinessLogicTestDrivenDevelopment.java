@@ -1,8 +1,12 @@
 package com.quintrix.banking.tdd;
 
 import java.util.Date;
+
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -42,14 +46,11 @@ public class BusinessLogicTestDrivenDevelopment {
 
 	@Test
 	public void canAddAccount() {
-//		BUG: makeAccount??
-//		Account testAccount = makeAccount("General Zod");
-		Account testAccount = new Account("General Zod");
+		Account testAccount = makeAccount("General Zod");
 		//  ** The following line may clash with the auto ID generation found in DataModel.java
 		testAccount.id = 1;
 		accountsDb.addAccount(testAccount);
 	}
-//
 	@Test
 	public void canFindAccountById() {
 		//  ** If auto ID generation created an issue with specifying an ID then this test will need to first locate a valid account ID before performing this search
@@ -82,10 +83,8 @@ public class BusinessLogicTestDrivenDevelopment {
 
 	@Test
 	public void canStoreTwoNewAccounts() {
-		Account newAccount1 = new Account("Thing 1");
-		Account newAccount2 = new Account("Thing 2");
-//		Account newAccount1 = makeAccount("Thing 1");
-//		Account newAccount2 = makeAccount("Thing 2");
+		Account newAccount1 = makeAccount("Thing 1");
+		Account newAccount2 = makeAccount("Thing 2");
 		newAccount1.currentBalance = 50.0;
 		newAccount2.currentBalance = 0.0;
 		accountsDb.addAccount(newAccount1);
@@ -93,7 +92,7 @@ public class BusinessLogicTestDrivenDevelopment {
 	}
 
 	@Test
-	public void canCreateValidTransaction() {
+	public void canCreateValidTransaction() throws Exception {
 		Account sourceAccount = accountsDb.findAccountByOwnerName("Thing 1");
 		Account destAccount = accountsDb.findAccountByOwnerName("Thing 2");
 		Transaction newTransaction = new Transaction();
@@ -129,19 +128,21 @@ public class BusinessLogicTestDrivenDevelopment {
 	public void batchProcessIsAccurate() {
 		Account testAccount1 = accountsDb.findAccountByOwnerName("Thing 1");
 		Account testAccount2 = accountsDb.findAccountByOwnerName("Thing 2");
+		System.out.println("testAccount1.currentBalance = " + testAccount1.currentBalance);
+		System.out.println("testAccount2.currentBalance = " + testAccount2.currentBalance);
 		assert(testAccount1.currentBalance == 0.0 && testAccount2.currentBalance == 50.0);
 	}
 
 
-//
-//	private Account makeAccount(String owner) {
-//		Account testAccount = new Account();
-//		testAccount.currentBalance = 0.0;
-//		testAccount.homeBranch = companyDb.findBranchByLocation("test location");
-//		testAccount.opened = new Date();
-//		testAccount.transactions = Sets.newHashSet();
-//		testAccount.ownerName = owner;
-//		return testAccount;
-//	}
-//
+
+	private Account makeAccount(String owner) {
+		Account testAccount = new Account();
+		testAccount.currentBalance = 0.0;
+		testAccount.homeBranch = companyDb.findBranchByLocation("test location");
+		testAccount.opened = new Date();
+		testAccount.transactions = Sets.newHashSet();
+		testAccount.ownerName = owner;
+		return testAccount;
+	}
+
 }
