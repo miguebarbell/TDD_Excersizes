@@ -2,7 +2,6 @@ package com.quintrix.banking.tdd;
 
 import java.util.Date;
 
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -106,9 +105,7 @@ public class BusinessLogicTestDrivenDevelopment {
 	@Test
 	public void cannotCreateInvalidTransaction() {
 		Account sourceAccount = accountsDb.findAccountByOwnerName("Thing 2");
-		System.out.println("sourceAccount.getOwnerName() = " + sourceAccount.getOwnerName());
 		Account destAccount = accountsDb.findAccountByOwnerName("Thing 1");
-		System.out.println("destAccount.getOwnerName() = " + destAccount.getOwnerName());
 		Transaction newTransaction = new Transaction();
 		newTransaction.amount = 1.0;
 		newTransaction.date = new Date();
@@ -127,8 +124,6 @@ public class BusinessLogicTestDrivenDevelopment {
 	public void batchProcessIsAccurate() {
 		Account testAccount1 = accountsDb.findAccountByOwnerName("Thing 1");
 		Account testAccount2 = accountsDb.findAccountByOwnerName("Thing 2");
-		System.out.println("testAccount1.currentBalance = " + testAccount1.currentBalance);
-		System.out.println("testAccount2.currentBalance = " + testAccount2.currentBalance);
 		assert(testAccount1.currentBalance == 0.0 && testAccount2.currentBalance == 50.0);
 	}
 
