@@ -5,8 +5,7 @@ import java.util.Set;
 
 import com.quintrix.banking.DataModel;
 
-public class Batch extends DataModel  {
-
+public class Batch {
 	public boolean finalized;
 	public Set<Transaction> transactions;
 	public Date date;

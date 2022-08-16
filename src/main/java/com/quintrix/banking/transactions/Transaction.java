@@ -2,8 +2,6 @@ package com.quintrix.banking.transactions;
 
 import java.util.Date;
 
-import com.quintrix.banking.DataModel;
-
 public class Transaction {
 
 	public long sourceAccountId;

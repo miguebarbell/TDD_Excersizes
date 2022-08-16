@@ -33,22 +33,26 @@ public class TransactionsRepository /* extends CrudRepository<Transaction, Long>
 //			return false;
 		} else {
 			// this should be live in batch processing
-			System.out.println("you have money for the transaction");
-			System.out.println(sourceAccount.ownerName + " before = " + sourceAccount.currentBalance);
-			sourceAccount.currentBalance -= transactionToSubmit.amount;
-			System.out.println(sourceAccount.ownerName + " after = " + sourceAccount.currentBalance);
-			System.out.println(destinationAccount.ownerName + " before = " + destinationAccount.currentBalance);
-			destinationAccount.currentBalance += transactionToSubmit.amount;
-			System.out.println(destinationAccount.ownerName + " after = " + destinationAccount.currentBalance);
+
 			transactions.add(transactionToSubmit);
 			return true;
 		}
 	}
 	public void startBatchProcessing(){
+		System.out.println("batching!!!!");
 		// make a method where holds all transactions until this is executed
 		// a for loop where execute all the transactions, and put the state of transferred to the transaction
-		System.out.println("batching!!!!");
-
+		for (int i = 0; i < transactions.size(); i++) {
+			Transaction tx = transactions.get(i);
+			Account sourceAccount = accountsDb.findAccountById(tx.sourceAccountId);
+			Account destinationAccount = accountsDb.findAccountById(tx.destinationAccountId);
+			System.out.println("you have money for the transaction");
+			System.out.println(sourceAccount.ownerName + " before = " + sourceAccount.currentBalance);
+			sourceAccount.currentBalance -= tx.amount;
+			System.out.println(sourceAccount.ownerName + " after = " + sourceAccount.currentBalance);
+			System.out.println(destinationAccount.ownerName + " before = " + destinationAccount.currentBalance);
+			destinationAccount.currentBalance += tx.amount;
+			System.out.println(destinationAccount.ownerName + " after = " + destinationAccount.currentBalance);
+		}
 	}
-	
 }
